@@ -19,7 +19,6 @@
       --text-secondary: #fecaca;
       --card-bg: rgba(127, 29, 29, 0.08);
       --border-color: rgba(127, 29, 29, 0.2);
-      --shadow-color: rgba(0, 0, 0, 0.1);
     }
     
     * {
@@ -47,7 +46,7 @@
       border: 1px solid var(--border-color);
     }
     
-    /* ===== BARRA DE NAVEGACIÓN CON BOTÓN AL CV ===== */
+    /* ===== BARRA DE NAVEGACIÓN ===== */
     .navbar-custom {
       display: flex;
       justify-content: space-between;
@@ -91,7 +90,7 @@
       box-shadow: 0 5px 15px rgba(217, 119, 6, 0.4);
     }
     
-    /* ===== TARJETAS Y SECCIONES (igual que CV) ===== */
+    /* ===== TARJETAS DE SECCIÓN ===== */
     .section-card {
       background: var(--card-bg);
       backdrop-filter: blur(10px);
@@ -124,11 +123,11 @@
       margin-left: 1rem;
     }
     
-    /* ===== TABLAS (diseño oscuro) ===== */
+    /* ===== TABLAS ===== */
     .data-table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 1rem;
+      margin-top: 0.5rem;
     }
     .data-table th, .materia-table th {
       text-align: left;
@@ -150,19 +149,6 @@
     .table-link:hover {
       text-decoration: underline;
     }
-    .materia-table-wrapper {
-      margin-bottom: 1.8rem;
-      border-radius: 12px;
-      overflow: hidden;
-      background: rgba(0,0,0,0.2);
-    }
-    .materia-table-caption {
-      background: rgba(127, 29, 29, 0.3);
-      padding: 0.6rem 1rem;
-      font-weight: 700;
-      font-size: 1.1rem;
-      border-left: 4px solid var(--accent-color);
-    }
     .tech-tag {
       background: rgba(217, 119, 6, 0.2);
       border: 1px solid var(--accent-color);
@@ -170,6 +156,7 @@
       padding: 0.2rem 0.7rem;
       border-radius: 20px;
       font-size: 0.8rem;
+      display: inline-block;
     }
     .empty-state {
       text-align: center;
@@ -177,6 +164,52 @@
       background: rgba(0,0,0,0.3);
       border-radius: 12px;
       color: var(--text-secondary);
+    }
+    
+    /* ===== APUNTES COLAPSABLES (acordeón) ===== */
+    details {
+      margin-bottom: 1rem;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
+    }
+    summary {
+      padding: 0.8rem 1rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      background: rgba(127, 29, 29, 0.3);
+      border-radius: 12px;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    summary::-webkit-details-marker {
+      display: none;
+    }
+    summary i {
+      color: var(--accent-color);
+      font-size: 1.2rem;
+    }
+    summary .materia-count {
+      font-size: 0.75rem;
+      background: rgba(217, 119, 6, 0.3);
+      padding: 0.1rem 0.5rem;
+      border-radius: 20px;
+      margin-left: auto;
+    }
+    details[open] summary {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .materia-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .materia-table th, .materia-table td {
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--border-color);
     }
     
     footer {
@@ -195,6 +228,7 @@
       .nav-links { justify-content: center; }
       .btn-cv { text-align: center; justify-content: center; }
       .data-table th, .data-table td { padding: 0.5rem; font-size: 0.85rem; }
+      summary { font-size: 1rem; }
     }
   </style>
 </head>
@@ -203,30 +237,19 @@
   <!-- Barra de navegación con botón al CV -->
   <div class="navbar-custom">
     <div class="nav-links">
-      <a href="#apuntes"><i class="fas fa-graduation-cap"></i> Apuntes</a>
-      <a href="#sitios"><i class="fas fa-globe"></i> Sitios web</a>
+      <a href="#sitios"><i class="fas fa-globe"></i> Sitios propios</a>
       <a href="#bases"><i class="fas fa-database"></i> Bases de datos</a>
+      <a href="#apuntes"><i class="fas fa-graduation-cap"></i> Apuntes</a>
     </div>
     <a href="https://armandodev-10.github.io/cv" target="_blank" class="btn-cv">
       <i class="fas fa-user-circle"></i> Ver mi CV profesional
     </a>
   </div>
 
-  <!-- Sección Apuntes -->
-  <div id="apuntes" class="section-card">
-    <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap;">
-      <h2 class="section-title"><i class="fas fa-notebook"></i> Apuntes por materia</h2>
-      <span class="badge-count" id="apuntes-count">0</span>
-    </div>
-    <div id="apuntes-container">
-      <div class="empty-state"><i class="fas fa-spinner fa-pulse"></i> Cargando apuntes...</div>
-    </div>
-  </div>
-
-  <!-- Sección Sitios propios -->
+  <!-- 1. SITIOS PROPIOS -->
   <div id="sitios" class="section-card">
     <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap;">
-      <h2 class="section-title"><i class="fas fa-globe"></i> Sitios web</h2>
+      <h2 class="section-title"><i class="fas fa-globe"></i> Sitios propios</h2>
       <span class="badge-count" id="sitios-count">0</span>
     </div>
     <div id="sitios-container">
@@ -234,10 +257,10 @@
     </div>
   </div>
 
-  <!-- Sección Bases de datos propias -->
+  <!-- 2. BASES DE DATOS PROPIAS -->
   <div id="bases" class="section-card">
     <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap;">
-      <h2 class="section-title"><i class="fas fa-database"></i> Bases de datos</h2>
+      <h2 class="section-title"><i class="fas fa-database"></i> Bases de datos propias</h2>
       <span class="badge-count" id="bases-count">0</span>
     </div>
     <div id="bases-container">
@@ -245,12 +268,23 @@
     </div>
   </div>
 
+  <!-- 3. APUNTES (COLAPSABLES) -->
+  <div id="apuntes" class="section-card">
+    <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap;">
+      <h2 class="section-title"><i class="fas fa-notebook"></i> Apuntes</h2>
+      <span class="badge-count" id="apuntes-count">0</span>
+    </div>
+    <div id="apuntes-container">
+      <div class="empty-state"><i class="fas fa-spinner fa-pulse"></i> Cargando apuntes...</div>
+    </div>
+  </div>
+
   <footer>
-    <i class="fas fa-edit"></i> Datos editables en apuntes.js, sitios.js, bases.js · <i class="fas fa-sync-alt"></i> Actualización en caliente
+
   </footer>
 </main>
 
-<!-- Archivos de datos externos (deben estar en la misma carpeta) -->
+<!-- Archivos de datos externos -->
 <script src="apuntes.js"></script>
 <script src="sitios.js"></script>
 <script src="bases.js"></script>
@@ -261,45 +295,7 @@
     return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
-  // Render Apuntes (agrupados por materia)
-  function renderApuntes(data, container, countBadge) {
-    container.innerHTML = '';
-    if (!data || !data.length) {
-      container.innerHTML = '<div class="empty-state">📘 No hay apuntes. Edita apuntes.js</div>';
-      countBadge.textContent = '0';
-      return;
-    }
-    countBadge.textContent = data.length;
-    const groups = new Map();
-    for (const item of data) {
-      const materia = item.materia || 'General';
-      if (!groups.has(materia)) groups.set(materia, []);
-      groups.get(materia).push({ fecha: item.fecha || '—', link: item.link || '#' });
-    }
-    for (const [materia, lista] of groups.entries()) {
-      const wrapper = document.createElement('div');
-      wrapper.className = 'materia-table-wrapper';
-      wrapper.innerHTML = `
-        <div class="materia-table-caption"><i class="fas fa-folder-open"></i> ${escapeHtml(materia)} <span style="font-size:0.75rem;">(${lista.length})</span></div>
-        <table class="data-table">
-          <thead><tr><th>Fecha</th><th>Enlace (Notion)</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      `;
-      const tbody = wrapper.querySelector('tbody');
-      lista.forEach(ap => {
-        const row = document.createElement('tr');
-        const linkHtml = (ap.link && ap.link !== '#') 
-          ? `<a href="${ap.link}" target="_blank" class="table-link"><i class="fas fa-external-link-alt"></i> Abrir</a>`
-          : '<span style="color:#aaa;">Sin enlace</span>';
-        row.innerHTML = `<td>${escapeHtml(ap.fecha)}</td><td>${linkHtml}</td>`;
-        tbody.appendChild(row);
-      });
-      container.appendChild(wrapper);
-    }
-  }
-
-  // Render Sitios propios
+  // ========== RENDER SITIOS PROPIOS ==========
   function renderSitios(data, container, countBadge) {
     container.innerHTML = '';
     if (!data || !data.length) {
@@ -310,7 +306,7 @@
     countBadge.textContent = data.length;
     const table = document.createElement('table');
     table.className = 'data-table';
-    table.innerHTML = `<thead><tr><th>Proyecto</th><th>Descripción</th><th>Enlace</th></tr></thead><tbody></tbody>`;
+    table.innerHTML = `<thead><tr><th>Proyecto / Sitio</th><th>Descripción</th><th>Enlace</th></tr></thead><tbody></tbody>`;
     const tbody = table.querySelector('tbody');
     data.forEach(site => {
       const nombre = site.nombre || site.titulo || 'Sin título';
@@ -324,7 +320,7 @@
     container.appendChild(table);
   }
 
-  // Render Bases de datos propias
+  // ========== RENDER BASES DE DATOS ==========
   function renderBases(data, container, countBadge) {
     container.innerHTML = '';
     if (!data || !data.length) {
@@ -335,14 +331,14 @@
     countBadge.textContent = data.length;
     const table = document.createElement('table');
     table.className = 'data-table';
-    table.innerHTML = `<thead><tr><th>Nombre</th><th>Tecnología</th><th>Descripción</th><th>Recurso</th></tr></thead><tbody></tbody>`;
+    table.innerHTML = `<thead><tr><th>Nombre</th><th>Tecnología</th><th>Descripción</th><th>Documentación</th></tr></thead><tbody></tbody>`;
     const tbody = table.querySelector('tbody');
     data.forEach(db => {
       const nombre = db.nombre || db.name || '—';
       const tecnologia = db.tecnologia || db.motor || '—';
       const desc = db.descripcion || db.desc || '';
       const linkDoc = db.link || db.documentacion || null;
-      const docCell = (linkDoc && linkDoc !== '#') ? `<a href="${linkDoc}" target="_blank" class="table-link">Documentación <i class="fas fa-book"></i></a>` : '—';
+      const docCell = (linkDoc && linkDoc !== '#') ? `<a href="${linkDoc}" target="_blank" class="table-link">Ver <i class="fas fa-book"></i></a>` : '—';
       const row = document.createElement('tr');
       row.innerHTML = `
         <td><strong>${escapeHtml(nombre)}</strong></td>
@@ -355,16 +351,70 @@
     container.appendChild(table);
   }
 
-  // Cargar datos desde variables globales (definidas en los .js externos)
+  // ========== RENDER APUNTES (COLAPSABLES POR MATERIA) ==========
+  function renderApuntes(data, container, countBadge) {
+      container.innerHTML = '';
+      if (!data || !data.length) {
+        container.innerHTML = '<div class="empty-state">📘 No hay apuntes. Edita apuntes.js</div>';
+        countBadge.textContent = '0';
+        return;
+      }
+      countBadge.textContent = data.length;
+
+      // Agrupar por materia
+      const groups = new Map();
+      for (const item of data) {
+        const materia = item.materia || 'General';
+        if (!groups.has(materia)) groups.set(materia, []);
+        groups.get(materia).push({ fecha: item.fecha || '—', link: item.link || '#' });
+      }
+
+      // Por cada materia, crear un <details> colapsable
+      for (const [materia, lista] of groups.entries()) {
+        // Ordenar la lista de apuntes por fecha descendente (más reciente primero)
+        lista.sort((a, b) => {
+          if (a.fecha === '—') return 1;
+          if (b.fecha === '—') return -1;
+          return new Date(b.fecha) - new Date(a.fecha);
+        });
+
+        const details = document.createElement('details');
+        const summary = document.createElement('summary');
+        summary.innerHTML = `
+          <i class="fas fa-folder-open"></i> ${escapeHtml(materia)}
+          <span class="materia-count">${lista.length} apunte(s)</span>
+        `;
+        details.appendChild(summary);
+
+        const table = document.createElement('table');
+        table.className = 'materia-table';
+        table.innerHTML = `<thead><tr><th>Fecha</th><th>Enlace (Notion)</th></tr></thead><tbody></tbody>`;
+        const tbody = table.querySelector('tbody');
+
+        lista.forEach(ap => {
+          const row = document.createElement('tr');
+          const linkHtml = (ap.link && ap.link !== '#') 
+            ? `<a href="${ap.link}" target="_blank" class="table-link"><i class="fas fa-external-link-alt"></i> Abrir en Notion</a>`
+            : '<span style="color:#aaa;">Sin enlace</span>';
+          row.innerHTML = `<td>${escapeHtml(ap.fecha)}</td><td>${linkHtml}</td>`;
+          tbody.appendChild(row);
+        });
+
+        details.appendChild(table);
+        container.appendChild(details);
+      }
+    }
+
+  // Inicialización
   function init() {
-    if (typeof apuntesData !== 'undefined') renderApuntes(apuntesData, document.getElementById('apuntes-container'), document.getElementById('apuntes-count'));
-    else document.getElementById('apuntes-container').innerHTML = '<div class="empty-state">❌ Error: apuntesData no definido. Revisa apuntes.js</div>';
-    
     if (typeof sitiosData !== 'undefined') renderSitios(sitiosData, document.getElementById('sitios-container'), document.getElementById('sitios-count'));
-    else document.getElementById('sitios-container').innerHTML = '<div class="empty-state">❌ Error: sitiosData no definido. Revisa sitios.js</div>';
+    else document.getElementById('sitios-container').innerHTML = '<div class="empty-state">❌ Error: sitiosData no definido</div>';
     
     if (typeof basesData !== 'undefined') renderBases(basesData, document.getElementById('bases-container'), document.getElementById('bases-count'));
-    else document.getElementById('bases-container').innerHTML = '<div class="empty-state">❌ Error: basesData no definido. Revisa bases.js</div>';
+    else document.getElementById('bases-container').innerHTML = '<div class="empty-state">❌ Error: basesData no definido</div>';
+    
+    if (typeof apuntesData !== 'undefined') renderApuntes(apuntesData, document.getElementById('apuntes-container'), document.getElementById('apuntes-count'));
+    else document.getElementById('apuntes-container').innerHTML = '<div class="empty-state">❌ Error: apuntesData no definido</div>';
   }
   init();
 </script>
