@@ -1,422 +1,185 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Armando Hernández · Cuaderno Profesional</title>
-  
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <style>
-    :root {
-      --primary-color: #7f1d1d;
-      --secondary-color: #b91c1c;
-      --accent-color: #d97706;
-      --dark-bg: #0f172a;
-      --text-color: #fef2f2;
-      --text-secondary: #fecaca;
-      --card-bg: rgba(127, 29, 29, 0.08);
-      --border-color: rgba(127, 29, 29, 0.2);
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      color: var(--text-color);
-      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-      line-height: 1.6;
-    }
-    
-    body {
-      background: linear-gradient(135deg, var(--dark-bg) 0%, #1e293b 100%);
-      min-height: 100vh;
-      padding: 20px;
-    }
-    
-    main {
-      max-width: 1400px;
-      margin: 0 auto;
-      background: rgba(15, 23, 42, 0.7);
-      border-radius: 20px;
-      padding: 2rem;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--border-color);
-    }
-    
-    /* ===== BARRA DE NAVEGACIÓN ===== */
-    .navbar-custom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--border-color);
-    }
-    .nav-links {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .nav-links a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover {
-      color: var(--accent-color);
-    }
-    .btn-cv {
-      background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
-      padding: 0.5rem 1.2rem;
-      border-radius: 40px;
-      font-weight: 500;
-      font-size: 0.9rem;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: all 0.2s;
-      border: none;
-      color: white !important;
-    }
-    .btn-cv:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(217, 119, 6, 0.4);
-    }
-    
-    /* ===== TARJETAS DE SECCIÓN ===== */
-    .section-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-      transition: all 0.3s ease;
-    }
-    .section-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(127, 29, 29, 0.2);
-      border-color: rgba(217, 119, 6, 0.4);
-    }
-    .section-title {
-      color: var(--accent-color);
-      font-size: 1.6rem;
-      font-weight: 600;
-      margin-bottom: 1.2rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid var(--accent-color);
-      display: inline-block;
-    }
-    .badge-count {
-      background: rgba(217, 119, 6, 0.2);
-      border: 1px solid var(--accent-color);
-      border-radius: 40px;
-      padding: 0.2rem 0.8rem;
-      font-size: 0.8rem;
-      margin-left: 1rem;
-    }
-    
-    /* ===== TABLAS ===== */
-    .data-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 0.5rem;
-    }
-    .data-table th, .materia-table th {
-      text-align: left;
-      padding: 0.75rem 0.5rem;
-      font-weight: 600;
-      color: var(--accent-color);
-      border-bottom: 1px solid var(--border-color);
-    }
-    .data-table td, .materia-table td {
-      padding: 0.75rem 0.5rem;
-      border-bottom: 1px solid var(--border-color);
-      color: var(--text-secondary);
-    }
-    .table-link {
-      color: var(--accent-color);
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .table-link:hover {
-      text-decoration: underline;
-    }
-    .tech-tag {
-      background: rgba(217, 119, 6, 0.2);
-      border: 1px solid var(--accent-color);
-      color: var(--accent-color);
-      padding: 0.2rem 0.7rem;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      display: inline-block;
-    }
-    .empty-state {
-      text-align: center;
-      padding: 2rem;
-      background: rgba(0,0,0,0.3);
-      border-radius: 12px;
-      color: var(--text-secondary);
-    }
-    
-    /* ===== APUNTES COLAPSABLES (acordeón) ===== */
-    details {
-      margin-bottom: 1rem;
-      border-radius: 12px;
-      background: rgba(0, 0, 0, 0.2);
-      border: 1px solid var(--border-color);
-    }
-    summary {
-      padding: 0.8rem 1rem;
-      font-weight: 700;
-      font-size: 1.1rem;
-      cursor: pointer;
-      background: rgba(127, 29, 29, 0.3);
-      border-radius: 12px;
-      list-style: none;
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
-    summary::-webkit-details-marker {
-      display: none;
-    }
-    summary i {
-      color: var(--accent-color);
-      font-size: 1.2rem;
-    }
-    summary .materia-count {
-      font-size: 0.75rem;
-      background: rgba(217, 119, 6, 0.3);
-      padding: 0.1rem 0.5rem;
-      border-radius: 20px;
-      margin-left: auto;
-    }
-    details[open] summary {
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-    .materia-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .materia-table th, .materia-table td {
-      padding: 0.6rem 1rem;
-      border-bottom: 1px solid var(--border-color);
-    }
-    
-    footer {
-      text-align: center;
-      margin-top: 2rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border-color);
-      color: var(--text-secondary);
-      font-size: 0.85rem;
-    }
-    
-    @media (max-width: 768px) {
-      main { padding: 1rem; }
-      .section-card { padding: 1rem; }
-      .navbar-custom { flex-direction: column; align-items: stretch; }
-      .nav-links { justify-content: center; }
-      .btn-cv { text-align: center; justify-content: center; }
-      .data-table th, .data-table td { padding: 0.5rem; font-size: 0.85rem; }
-      summary { font-size: 1rem; }
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Armando Hernández · Cuaderno Profesional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=Source+Serif+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',-apple-system,sans-serif;background:#f8fafc;color:#0f172a;min-height:100vh;padding:24px;opacity:0;transition:opacity .8s ease}
+        body.loaded{opacity:1}
+        ::-webkit-scrollbar{width:5px}
+        ::-webkit-scrollbar-track{background:#f8fafc}
+        ::-webkit-scrollbar-thumb{background:#3b82f6;border-radius:10px}
+        .cv-container{max-width:1200px;margin:0 auto;background:#fff;border-radius:16px;box-shadow:0 8px 32px rgba(15,23,42,.08);overflow:hidden;border:1px solid #e2e8f0}
+        .magazine-cover{background:#0f172a;color:#f8fafc;padding:2.5rem 3rem 1.8rem;position:relative;overflow:hidden;display:flex;align-items:center}
+        .magazine-cover::before{content:'';position:absolute;top:-50%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(59,130,246,.06),transparent 70%);pointer-events:none}
+        .magazine-cover .cover-content{position:relative;z-index:2;flex:1}
+        .magazine-cover .cover-badge{font-size:.6rem;text-transform:uppercase;letter-spacing:.15em;color:#d4a574;font-weight:600;margin-bottom:.5rem}
+        .magazine-cover .cover-title{font-family:'Playfair Display','Times New Roman',serif;font-size:2.4rem;font-weight:800;line-height:1.1;letter-spacing:-.02em}
+        .magazine-cover .cover-title .highlight{color:#d4a574;font-style:italic}
+        .magazine-cover .cover-subtitle{font-size:.95rem;font-weight:300;color:rgba(255,255,255,.7);font-family:'Source Serif Pro','Georgia',serif;font-style:italic}
+        .magazine-cover .cover-meta{display:flex;gap:1.5rem;margin-top:.8rem;font-size:.65rem;text-transform:uppercase;letter-spacing:.05em;color:rgba(255,255,255,.4);flex-wrap:wrap}
+        .magazine-cover .cover-meta span i{margin-right:.4rem;color:#d4a574}
+        .cover-photo{position:relative;z-index:2;margin-left:2rem;flex-shrink:0}
+        .cover-photo img{width:110px;height:110px;border-radius:50%;object-fit:cover;border:4px solid #d4a574;box-shadow:0 8px 40px rgba(0,0,0,.3)}
+        .magazine-body{padding:2rem 3rem}
+        .section-title-mag{font-family:'Playfair Display','Times New Roman',serif;font-size:1.3rem;font-weight:700;color:#0f172a;margin-bottom:1.2rem;letter-spacing:-.01em;border-bottom:2px solid #f5e6d3;padding-bottom:.4rem;display:inline-block}
+        .section-title-mag i{color:#d4a574;margin-right:.5rem;font-size:1rem}
+        .section-title-mag .badge-count{font-family:'Inter',sans-serif;font-size:.7rem;font-weight:600;color:#64748b;background:#f1f5f9;padding:.1rem .6rem;border-radius:20px;margin-left:.6rem}
+        .mag-tag{background:#f8fafc;border:1px solid #e2e8f0;padding:.15rem .7rem;border-radius:20px;font-size:.7rem;font-weight:500;color:#334155;transition:all .3s ease;display:inline-block}
+        .mag-tag:hover{border-color:#3b82f6;color:#3b82f6}
+        .empty-state{text-align:center;padding:2.5rem 1rem;color:#94a3b8;font-family:'Source Serif Pro','Georgia',serif;font-size:.95rem;font-style:italic}
+        .empty-state i{color:#d4a574;font-size:1.8rem;display:block;margin-bottom:.5rem}
+        .data-table{width:100%;border-collapse:collapse;margin-top:.5rem;font-size:.85rem}
+        .data-table th{text-align:left;padding:.6rem .5rem;font-weight:700;color:#0f172a;border-bottom:2px solid #f5e6d3}
+        .data-table td{padding:.6rem .5rem;border-bottom:1px solid #f1f5f9;color:#334155;vertical-align:middle}
+        .data-table tr:hover{background:#fafafa}
+        .table-link{color:#3b82f6;text-decoration:none;font-weight:600;font-size:.8rem;transition:all .3s ease}
+        .table-link:hover{color:#0f172a;transform:translateX(3px);display:inline-block}
+        .tech-tag{background:#f1f5f9;border:1px solid #e2e8f0;padding:.1rem .6rem;border-radius:20px;font-size:.65rem;font-weight:500;color:#475569;display:inline-block}
+        details{margin-bottom:.8rem;border-radius:10px;background:#fafafa;border:1px solid #eef2f6;overflow:hidden}
+        summary{padding:.7rem 1.2rem;font-weight:700;font-size:.95rem;cursor:pointer;background:#f8fafc;list-style:none;display:flex;align-items:center;gap:.6rem;transition:background .2s;color:#0f172a}
+        summary:hover{background:#f1f5f9}
+        summary::-webkit-details-marker{display:none}
+        summary i{color:#d4a574;font-size:1rem}
+        summary .materia-count{font-size:.65rem;font-weight:500;background:#eef2f6;padding:.1rem .6rem;border-radius:20px;margin-left:auto;color:#64748b}
+        details[open] summary{border-bottom:1px solid #eef2f6}
+        .materia-table{width:100%;border-collapse:collapse;font-size:.8rem}
+        .materia-table th{text-align:left;padding:.4rem .8rem;font-weight:600;color:#475569;background:#f8fafc;border-bottom:1px solid #eef2f6}
+        .materia-table td{padding:.4rem .8rem;border-bottom:1px solid #f1f5f9;color:#475569}
+        .btn-cv{background:#0f172a;border:none;border-radius:30px;padding:.5rem 1.2rem;font-weight:600;font-size:.7rem;color:#fff;transition:all .3s ease;cursor:pointer;display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;font-family:'Inter',sans-serif}
+        .btn-cv:hover{background:#1e293b;transform:translateY(-2px);box-shadow:0 8px 20px rgba(15,23,42,.15);color:#fff}
+        .btn-outline-mag{background:transparent;border:1px solid #e2e8f0;border-radius:30px;padding:.5rem 1.2rem;font-weight:500;font-size:.7rem;color:#334155;transition:all .3s ease;cursor:pointer;text-decoration:none;font-family:'Inter',sans-serif;display:inline-flex;align-items:center;gap:.5rem}
+        .btn-outline-mag:hover{border-color:#0f172a;color:#0f172a;background:#f8fafc}
+        .navbar-actions{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+        .mag-footer{background:#0f172a;color:rgba(255,255,255,.4);text-align:center;padding:1.2rem;font-size:.65rem;letter-spacing:.05em}
+        .print-only{display:none!important}
+        @media(max-width:992px){.magazine-cover{flex-direction:column-reverse;text-align:center;padding:1.8rem 1.5rem}.cover-photo{margin-left:0;margin-bottom:.8rem}.cover-photo img{width:100px;height:100px}.magazine-cover .cover-title{font-size:2rem}.magazine-body{padding:1.5rem}.magazine-cover .cover-meta{justify-content:center}}
+        @media(max-width:576px){body{padding:12px}.magazine-cover .cover-title{font-size:1.6rem}.magazine-cover{padding:1.2rem 1rem}.magazine-body{padding:1rem}.cover-photo img{width:80px;height:80px}.data-table{font-size:.75rem}.data-table th,.data-table td{padding:.4rem .3rem}.materia-table{font-size:.7rem}summary{font-size:.85rem;padding:.5rem .8rem}}
+        @media print{body{background:#fff!important;padding:0!important;opacity:1!important}.cv-container{border-radius:0!important;box-shadow:none!important;border:none!important}.magazine-cover{background:#0f172a!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}.magazine-cover .cover-title{color:#fff!important}.magazine-cover .cover-subtitle{color:rgba(255,255,255,.7)!important}.magazine-cover .cover-meta{color:rgba(255,255,255,.5)!important}.magazine-cover .cover-badge{color:#d4a574!important}.cover-photo img{border-color:#d4a574!important}.btn-cv,.btn-outline-mag,.no-print{display:none!important}.print-only{display:block!important}.mag-tag{border:1px solid #ccc!important;background:#f5f5f5!important}.section-title-mag{border-bottom-color:#d4a574!important}.mag-footer{background:#0f172a!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}.mag-footer a{color:#d4a574!important}.data-table th{border-bottom-color:#d4a574!important}}
+    </style>
 </head>
 <body>
-<main>
-  <!-- Barra de navegación con botón al CV -->
-  <div class="navbar-custom">
-    <div class="nav-links">
-      <a href="#sitios"><i class="fas fa-globe"></i> Sitios propios</a>
-      <a href="#bases"><i class="fas fa-database"></i> Bases de datos</a>
-      <a href="#apuntes"><i class="fas fa-graduation-cap"></i> Apuntes</a>
+    <div class="cv-container">
+        <header class="magazine-cover">
+            <div class="cover-content">
+                <div class="cover-badge"><i class="fas fa-star"></i> Cuaderno Profesional</div>
+                <h1 class="cover-title">Armando <span class="highlight">Hernández</span></h1>
+                <p class="cover-subtitle">Economista · Desarrollador Python · Analista de Datos</p>
+                <div class="cover-meta">
+                    <span><i class="fas fa-code"></i> 17 tecnologías</span>
+                    <span><i class="fas fa-rocket"></i> 6 proyectos</span>
+                    <span><i class="fas fa-graduation-cap"></i> 9° semestre</span>
+                    <span><i class="fas fa-map-marker-alt"></i> CDMX</span>
+                </div>
+            </div>
+            <div class="cover-photo">
+                <img src="https://i.ibb.co/LXdPt9g0/imagen.jpg" alt="Armando Hernández" />
+            </div>
+        </header>
+
+        <div class="magazine-body">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;margin-bottom:1.5rem;">
+                <div style="display:flex;gap:1.2rem;flex-wrap:wrap;">
+                    <a href="#sitios" style="color:#334155;text-decoration:none;font-size:.8rem;font-weight:500;transition:color .3s;"><i class="fas fa-globe" style="color:#d4a574;"></i> Sitios</a>
+                    <a href="#bases" style="color:#334155;text-decoration:none;font-size:.8rem;font-weight:500;transition:color .3s;"><i class="fas fa-database" style="color:#d4a574;"></i> Bases de datos</a>
+                    <a href="#apuntes" style="color:#334155;text-decoration:none;font-size:.8rem;font-weight:500;transition:color .3s;"><i class="fas fa-notebook" style="color:#d4a574;"></i> Apuntes</a>
+                </div>
+                <div class="navbar-actions no-print">
+                    <a href="https://armandodev-10.github.io/cv" target="_blank" class="btn-cv"><i class="fas fa-user-circle"></i> Ver CV</a>
+                    <button class="btn-outline-mag" onclick="window.print()"><i class="fas fa-file-pdf"></i> PDF</button>
+                </div>
+            </div>
+
+            <!-- SITIOS -->
+            <div id="sitios" style="scroll-margin-top:1rem;">
+                <h2 class="section-title"><i class="fas fa-globe"></i> Sitios propios <span class="badge-count" id="sitios-count">0</span></h2>
+                <div id="sitios-container"><div class="empty-state"><i class="fas fa-spinner fa-pulse"></i> Cargando sitios...</div></div>
+            </div>
+
+            <hr style="border-color:#f1f5f9;margin:2rem 0;" />
+
+            <!-- BASES DE DATOS -->
+            <div id="bases" style="scroll-margin-top:1rem;">
+                <h2 class="section-title"><i class="fas fa-database"></i> Bases de datos propias <span class="badge-count" id="bases-count">0</span></h2>
+                <div id="bases-container"><div class="empty-state"><i class="fas fa-spinner fa-pulse"></i> Cargando bases...</div></div>
+            </div>
+
+            <hr style="border-color:#f1f5f9;margin:2rem 0;" />
+
+            <!-- APUNTES -->
+            <div id="apuntes" style="scroll-margin-top:1rem;">
+                <h2 class="section-title"><i class="fas fa-notebook"></i> Apuntes <span class="badge-count" id="apuntes-count">0</span></h2>
+                <div id="apuntes-container"><div class="empty-state"><i class="fas fa-spinner fa-pulse"></i> Cargando apuntes...</div></div>
+            </div>
+        </div>
+
+        <div class="mag-footer">
+            <p>© <span id="year"></span> Armando Hernández · Cuaderno Profesional</p>
+        </div>
     </div>
-    <a href="https://armandodev-10.github.io/cv" target="_blank" class="btn-cv">
-      <i class="fas fa-user-circle"></i> Ver mi CV profesional
-    </a>
-  </div>
 
-  <!-- 1. SITIOS PROPIOS -->
-  <div id="sitios" class="section-card">
-    <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap;">
-      <h2 class="section-title"><i class="fas fa-globe"></i> Sitios propios</h2>
-      <span class="badge-count" id="sitios-count">0</span>
-    </div>
-    <div id="sitios-container">
-      <div class="empty-state"><i class="fas fa-spinner fa-pulse"></i> Cargando sitios...</div>
-    </div>
-  </div>
+    <!-- Archivos de datos -->
+    <script src="apuntes.js"></script>
+    <script src="bases.js"></script>
+    <script src="sitios.js"></script>
 
-  <!-- 2. BASES DE DATOS PROPIAS -->
-  <div id="bases" class="section-card">
-    <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap;">
-      <h2 class="section-title"><i class="fas fa-database"></i> Bases de datos propias</h2>
-      <span class="badge-count" id="bases-count">0</span>
-    </div>
-    <div id="bases-container">
-      <div class="empty-state"><i class="fas fa-spinner fa-pulse"></i> Cargando bases de datos...</div>
-    </div>
-  </div>
+    <script>
+        function escapeHtml(s){if(!s)return '';return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 
-  <!-- 3. APUNTES (COLAPSABLES) -->
-  <div id="apuntes" class="section-card">
-    <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap;">
-      <h2 class="section-title"><i class="fas fa-notebook"></i> Apuntes</h2>
-      <span class="badge-count" id="apuntes-count">0</span>
-    </div>
-    <div id="apuntes-container">
-      <div class="empty-state"><i class="fas fa-spinner fa-pulse"></i> Cargando apuntes...</div>
-    </div>
-  </div>
+        function renderSitios(data, container, badge) {
+            container.innerHTML='';
+            if(!data||!data.length){container.innerHTML='<div class="empty-state"><i class="fas fa-globe"></i> No hay sitios registrados</div>';badge.textContent='0';return}
+            badge.textContent=data.length;
+            var t='<table class="data-table"><thead><tr><th>Proyecto</th><th>Descripción</th><th>Tecnologías</th><th>Enlace</th></tr></thead><tbody>';
+            data.forEach(function(s){t+='<tr><td><strong>'+escapeHtml(s.nombre||s.titulo||'Sin título')+'</strong></td><td>'+escapeHtml(s.descripcion||s.desc||'')+'</td><td>'+(s.tecnologias||s.tecnologia||[]).map(function(t){return '<span class="tech-tag">'+escapeHtml(t)+'</span>'}).join(' ')+'</td><td>'+(s.url&&s.url!='#'?'<a href="'+s.url+'" target="_blank" class="table-link">Visitar <i class="fas fa-arrow-right"></i></a>':'—')+'</td></tr>'});
+            t+='</tbody></table>';
+            container.innerHTML=t;
+        }
 
-  <footer>
+        function renderBases(data, container, badge) {
+            container.innerHTML='';
+            if(!data||!data.length){container.innerHTML='<div class="empty-state"><i class="fas fa-database"></i> No hay bases de datos registradas</div>';badge.textContent='0';return}
+            badge.textContent=data.length;
+            var t='<table class="data-table"><thead><tr><th>Nombre</th><th>Motor</th><th>Descripción</th><th>Documentación</th></tr></thead><tbody>';
+            data.forEach(function(d){t+='<tr><td><strong>'+escapeHtml(d.nombre||d.name||'—')+'</strong></td><td><span class="tech-tag">'+escapeHtml(d.tecnologia||d.motor||'—')+'</span></td><td>'+escapeHtml(d.descripcion||d.desc||'')+'</td><td>'+(d.link&&d.link!='#'?'<a href="'+d.link+'" target="_blank" class="table-link">Ver <i class="fas fa-book"></i></a>':'—')+'</td></tr>'});
+            t+='</tbody></table>';
+            container.innerHTML=t;
+        }
 
-  </footer>
-</main>
+        function renderApuntes(data, container, badge) {
+            container.innerHTML='';
+            if(!data||!data.length){container.innerHTML='<div class="empty-state"><i class="fas fa-notebook"></i> No hay apuntes registrados</div>';badge.textContent='0';return}
+            badge.textContent=data.length;
+            var groups=new Map();
+            data.forEach(function(item){var m=item.materia||'General';if(!groups.has(m))groups.set(m,[]);groups.get(m).push({fecha:item.fecha||'—',link:item.link||'#'})});
+            groups.forEach(function(lista,materia){
+                lista.sort(function(a,b){if(a.fecha==='—')return 1;if(b.fecha==='—')return -1;return new Date(b.fecha)-new Date(a.fecha)});
+                var d=document.createElement('details');
+                var s=document.createElement('summary');
+                s.innerHTML='<i class="fas fa-folder-open"></i> '+escapeHtml(materia)+' <span class="materia-count">'+lista.length+' apunte(s)</span>';
+                d.appendChild(s);
+                var t='<table class="materia-table"><thead><tr><th>Fecha</th><th>Enlace (Notion)</th></tr></thead><tbody>';
+                lista.forEach(function(a){t+='<tr><td>'+escapeHtml(a.fecha)+'</td><td>'+(a.link&&a.link!='#'?'<a href="'+a.link+'" target="_blank" class="table-link"><i class="fas fa-external-link-alt"></i> Abrir</a>':'<span style="color:#aaa;">Sin enlace</span>')+'</td></tr>'});
+                t+='</tbody></table>';
+                d.innerHTML+=t;
+                container.appendChild(d)
+            });
+        }
 
-<!-- Archivos de datos externos -->
-<script src="apuntes.js"></script>
-<script src="sitios.js"></script>
-<script src="bases.js"></script>
-
-<script>
-  function escapeHtml(str) {
-    if (!str) return '';
-    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  }
-
-  // ========== RENDER SITIOS PROPIOS ==========
-  function renderSitios(data, container, countBadge) {
-    container.innerHTML = '';
-    if (!data || !data.length) {
-      container.innerHTML = '<div class="empty-state">🌐 No hay sitios propios. Edita sitios.js</div>';
-      countBadge.textContent = '0';
-      return;
-    }
-    countBadge.textContent = data.length;
-    const table = document.createElement('table');
-    table.className = 'data-table';
-    table.innerHTML = `<thead><tr><th>Proyecto / Sitio</th><th>Descripción</th><th>Enlace</th></tr></thead><tbody></tbody>`;
-    const tbody = table.querySelector('tbody');
-    data.forEach(site => {
-      const nombre = site.nombre || site.titulo || 'Sin título';
-      const desc = site.descripcion || site.desc || '';
-      const url = site.url || site.link || '#';
-      const linkCell = (url !== '#') ? `<a href="${url}" target="_blank" class="table-link">Visitar <i class="fas fa-arrow-right"></i></a>` : '—';
-      const row = document.createElement('tr');
-      row.innerHTML = `<td><strong>${escapeHtml(nombre)}</strong></td><td>${escapeHtml(desc)}</td><td>${linkCell}</td>`;
-      tbody.appendChild(row);
-    });
-    container.appendChild(table);
-  }
-
-  // ========== RENDER BASES DE DATOS ==========
-  function renderBases(data, container, countBadge) {
-    container.innerHTML = '';
-    if (!data || !data.length) {
-      container.innerHTML = '<div class="empty-state">🗄️ No hay bases de datos propias. Edita bases.js</div>';
-      countBadge.textContent = '0';
-      return;
-    }
-    countBadge.textContent = data.length;
-    const table = document.createElement('table');
-    table.className = 'data-table';
-    table.innerHTML = `<thead><tr><th>Nombre</th><th>Tecnología</th><th>Descripción</th><th>Documentación</th></tr></thead><tbody></tbody>`;
-    const tbody = table.querySelector('tbody');
-    data.forEach(db => {
-      const nombre = db.nombre || db.name || '—';
-      const tecnologia = db.tecnologia || db.motor || '—';
-      const desc = db.descripcion || db.desc || '';
-      const linkDoc = db.link || db.documentacion || null;
-      const docCell = (linkDoc && linkDoc !== '#') ? `<a href="${linkDoc}" target="_blank" class="table-link">Ver <i class="fas fa-book"></i></a>` : '—';
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td><strong>${escapeHtml(nombre)}</strong></td>
-        <td><span class="tech-tag">${escapeHtml(tecnologia)}</span></td>
-        <td>${escapeHtml(desc)}</td>
-        <td>${docCell}</td>
-      `;
-      tbody.appendChild(row);
-    });
-    container.appendChild(table);
-  }
-
-  // ========== RENDER APUNTES (COLAPSABLES POR MATERIA) ==========
-  function renderApuntes(data, container, countBadge) {
-      container.innerHTML = '';
-      if (!data || !data.length) {
-        container.innerHTML = '<div class="empty-state">📘 No hay apuntes. Edita apuntes.js</div>';
-        countBadge.textContent = '0';
-        return;
-      }
-      countBadge.textContent = data.length;
-
-      // Agrupar por materia
-      const groups = new Map();
-      for (const item of data) {
-        const materia = item.materia || 'General';
-        if (!groups.has(materia)) groups.set(materia, []);
-        groups.get(materia).push({ fecha: item.fecha || '—', link: item.link || '#' });
-      }
-
-      // Por cada materia, crear un <details> colapsable
-      for (const [materia, lista] of groups.entries()) {
-        // Ordenar la lista de apuntes por fecha descendente (más reciente primero)
-        lista.sort((a, b) => {
-          if (a.fecha === '—') return 1;
-          if (b.fecha === '—') return -1;
-          return new Date(b.fecha) - new Date(a.fecha);
+        document.addEventListener('DOMContentLoaded',function(){
+            document.getElementById('year').textContent=new Date().getFullYear();
+            document.body.classList.add('loaded');
+            if(typeof sitiosData!=='undefined')renderSitios(sitiosData,document.getElementById('sitios-container'),document.getElementById('sitios-count'));
+            else document.getElementById('sitios-container').innerHTML='<div class="empty-state"><i class="fas fa-exclamation-circle"></i> Error: sitiosData no definido</div>';
+            if(typeof basesData!=='undefined')renderBases(basesData,document.getElementById('bases-container'),document.getElementById('bases-count'));
+            else document.getElementById('bases-container').innerHTML='<div class="empty-state"><i class="fas fa-exclamation-circle"></i> Error: basesData no definido</div>';
+            if(typeof apuntesData!=='undefined')renderApuntes(apuntesData,document.getElementById('apuntes-container'),document.getElementById('apuntes-count'));
+            else document.getElementById('apuntes-container').innerHTML='<div class="empty-state"><i class="fas fa-exclamation-circle"></i> Error: apuntesData no definido</div>';
         });
-
-        const details = document.createElement('details');
-        const summary = document.createElement('summary');
-        summary.innerHTML = `
-          <i class="fas fa-folder-open"></i> ${escapeHtml(materia)}
-          <span class="materia-count">${lista.length} apunte(s)</span>
-        `;
-        details.appendChild(summary);
-
-        const table = document.createElement('table');
-        table.className = 'materia-table';
-        table.innerHTML = `<thead><tr><th>Fecha</th><th>Enlace (Notion)</th></tr></thead><tbody></tbody>`;
-        const tbody = table.querySelector('tbody');
-
-        lista.forEach(ap => {
-          const row = document.createElement('tr');
-          const linkHtml = (ap.link && ap.link !== '#') 
-            ? `<a href="${ap.link}" target="_blank" class="table-link"><i class="fas fa-external-link-alt"></i> Abrir en Notion</a>`
-            : '<span style="color:#aaa;">Sin enlace</span>';
-          row.innerHTML = `<td>${escapeHtml(ap.fecha)}</td><td>${linkHtml}</td>`;
-          tbody.appendChild(row);
-        });
-
-        details.appendChild(table);
-        container.appendChild(details);
-      }
-    }
-
-  // Inicialización
-  function init() {
-    if (typeof sitiosData !== 'undefined') renderSitios(sitiosData, document.getElementById('sitios-container'), document.getElementById('sitios-count'));
-    else document.getElementById('sitios-container').innerHTML = '<div class="empty-state">❌ Error: sitiosData no definido</div>';
-    
-    if (typeof basesData !== 'undefined') renderBases(basesData, document.getElementById('bases-container'), document.getElementById('bases-count'));
-    else document.getElementById('bases-container').innerHTML = '<div class="empty-state">❌ Error: basesData no definido</div>';
-    
-    if (typeof apuntesData !== 'undefined') renderApuntes(apuntesData, document.getElementById('apuntes-container'), document.getElementById('apuntes-count'));
-    else document.getElementById('apuntes-container').innerHTML = '<div class="empty-state">❌ Error: apuntesData no definido</div>';
-  }
-  init();
-</script>
+    </script>
 </body>
 </html>
